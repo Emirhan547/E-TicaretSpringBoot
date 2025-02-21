@@ -1,5 +1,6 @@
 package com.eticaret.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eticaret.dto.UserRequestDTO;
-import com.eticaret.dto.UserResponseDTO;
 import com.eticaret.entity.User;
 import com.eticaret.service.UserService;
 
@@ -29,14 +29,9 @@ public class UserController {
 
     // Kullanıcı ekleme
 	@PostMapping
-	public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userDTO) {
-	    User createdUser = userService.createUser(userDTO);
-	    UserResponseDTO responseDTO = new UserResponseDTO();
-	    responseDTO.setId(createdUser.getId());
-	    responseDTO.setUsername(createdUser.getUsername());
-	    responseDTO.setEmail(createdUser.getEmail());
-
-	    return ResponseEntity.status(201).body(responseDTO);
+	public ResponseEntity<User> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+	    User createdUser = userService.createUser(userRequestDTO);
+	    return ResponseEntity.status(201).body(createdUser);
 	}
 
 
