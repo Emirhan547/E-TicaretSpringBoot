@@ -1,126 +1,75 @@
 package com.eticaret.entity;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "users")
 public class User {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
 
-    @Column(name = "username", unique = true, nullable = false)
-    @NotBlank(message = "Kullanıcı adı boş olamaz.")
-    @Size(min = 3, max = 20, message = "Kullanıcı adı 3 ile 20 karakter arasında olmalıdır.")
-    private String username;
+	    @Column(nullable = false, unique = true)
+	    private String username;
 
-    @Column(name = "password", nullable = false)
-    @NotBlank(message = "Şifre boş olamaz.")
-    @Size(min = 6, message = "Şifre en az 6 karakter olmalıdır.")
-    private String password;
+	    @Column(nullable = false)
+	    private String password;
 
-    @Column(name = "email", unique = true, nullable = false)
-    @NotBlank(message = "E-posta adresi boş olamaz.")
-    @Email(message = "Geçerli bir e-posta adresi giriniz.")
-    private String email;
+	    @Column(nullable = false, unique = true)
+	    private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+	    @ManyToMany(fetch = FetchType.EAGER)
+	    @JoinTable(
+	        name = "user_roles",
+	        joinColumns = @JoinColumn(name = "user_id"),
+	        inverseJoinColumns = @JoinColumn(name = "role_id")
+	    )
+	    private Set<Role> roles = new HashSet<>();
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+	    // Boş yapıcı (JPA için gerekli)
+	    public User() {}
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+	    // Yapıcı (Constructor)
+	    public User(String username, String password, String email, Set<Role> roles) {
+	        this.username = username;
+	        this.password = password;
+	        this.email = email;
+	        this.roles = roles;
+	    }
 
-    // **Boş Constructor (JPA için gerekli)**
-    public User() {
-    }
+	    // Getter ve Setter
+	    public Long getId() { return id; }
+	    public void setId(Long id) { this.id = id; }
 
-    // **Parametreli Constructor**
-    public User(Long id, String username, String password, String email, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
+	    public String getUsername() { return username; }
+	    public void setUsername(String username) { this.username = username; }
 
-    // **Getter & Setter Metodları**
-    public Long getId() {
-        return id;
-    }
+	    public String getPassword() { return password; }
+	    public void setPassword(String password) { this.password = password; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	    public String getEmail() { return email; }
+	    public void setEmail(String email) { this.email = email; }
 
-    public String getUsername() {
-        return username;
-    }
+	    public Set<Role> getRoles() { return roles; }
+	    public void setRoles(Set<Role> roles) { this.roles = roles; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+	    // Roles'ü String olarak döndüren yardımcı metot
+	    public Set<String> getRoleNames() {
+	        return roles.stream()
+	                   .map(role -> role.getName().name())
+	                   .collect(Collectors.toSet());
+	    }
 }
