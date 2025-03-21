@@ -1,8 +1,8 @@
-# 📦 E-Ticaret Sistemi
+#  E-Ticaret Sistemi
 
 Bu proje, **Spring Boot** kullanılarak geliştirilmiş, çok katmanlı ve modüler bir e-ticaret sistemidir. Kullanıcı yönetimi, ürün katalog yönetimi, sipariş takibi, ödeme işlemleri ve yorum sistemini içeren geniş kapsamlı bir altyapıya sahiptir.
 
-## 📌 Özellikler
+##  Özellikler
 
 - **Kullanıcı Yönetimi**:
   - JWT tabanlı güvenli kimlik doğrulama
@@ -39,7 +39,7 @@ Bu proje, **Spring Boot** kullanılarak geliştirilmiş, çok katmanlı ve modü
 
 ---
 
-## 🚀 Kullanılan Teknolojiler
+##  Kullanılan Teknolojiler
 
 - **Backend:** Java, Spring Boot, Hibernate, Spring Security, Spring Data JPA
 - **Database:** Oracle
@@ -52,7 +52,7 @@ Bu proje, **Spring Boot** kullanılarak geliştirilmiş, çok katmanlı ve modü
 
 ---
 
-## 🏗 Katmanlı Mimari Açıklaması
+##  Katmanlı Mimari Açıklaması
 
 Bu proje **çok katmanlı bir mimariye** sahiptir. Katmanların işlevleri aşağıdaki gibidir:
 
@@ -65,11 +65,11 @@ Bu proje **çok katmanlı bir mimariye** sahiptir. Katmanların işlevleri aşa�
 
 ---
 
-## 📡 API Kullanımı
+##  API Kullanımı
 
-### 🏷️ Kupon İşlemleri
+###  Kupon İşlemleri
 
-#### 1️⃣ Kupon Oluşturma
+####  Kupon Oluşturma
 
 ```http
 POST /api/coupons
@@ -85,13 +85,13 @@ Body:
 }
 ```
 
-#### 2️⃣ Kupon Kodu ile Bilgi Alma
+#### 2 Kupon Kodu ile Bilgi Alma
 
 ```http
 GET /api/coupons/{code}
 ```
 
-#### 3️⃣ Kupon Silme
+####  Kupon Silme
 
 ```http
 DELETE /api/coupons/{id}
@@ -99,9 +99,9 @@ DELETE /api/coupons/{id}
 
 ---
 
-### 💳 Ödeme İşlemleri
+###  Ödeme İşlemleri
 
-#### 1️⃣ Ödeme İşleme
+####  Ödeme İşleme
 
 ```http
 POST /api/payments/process
@@ -119,5 +119,5 @@ Body:
 
 ---
 
-README'yi, projenin **servis katmanındaki iş mantığını, ödeme ve kupon yönetimi gibi özellikleri, Redis önbellekleme, asenkron işlemler ve global hata yönetimi** gibi önemli detaylarla genişlettim. Eğer daha fazla ekleme yapmak istersen bana bildirebilirsin! 🚀
+README'yi, projenin **servis katmanındaki iş mantığını, ödeme ve kupon yönetimi gibi özellikleri, Redis önbellekleme, asenkron işlemler ve global hata yönetimi** gibi önemli detaylarla genişlettim. Eğer daha fazla ekleme yapmak istersen bana bildirebilirsin! 
 
